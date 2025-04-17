@@ -1,0 +1,2 @@
+# ats-resume-checker
+ This project is an ATS (Applicant Tracking System) resume checker built to evaluate resumes based on key criteria, including keywords, skills, and document formatting. The tool uses QdrantClient to score the relevance of keywords and skills in a resume, ensuring they match industry standards and job requirements. It supports both PDF and Word file formats, analyzing the layout and content structure to give an overall ATS score, helping candidates optimize their resumes for better chances in automated screenings.
