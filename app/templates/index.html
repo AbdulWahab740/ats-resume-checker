@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <link rel="stylesheet" href="style.css">
+    <title>AW Resume Analyzer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wdth,wght@94.5,400..700&display=swap');
+
+        :root {
+            --teal: #257180;
+            --light-beige: #F2E5BF;
+            --orange: #FD8B51;
+            --red: #CB6040;
+            --argentinian-blue: #65afff;
+            --lapis-lazuli: #335c81;
+            --united-nations-blue: #5899e2;
+        }
+        body {
+            background-color: var(--light-beige);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            color: var(--teal); /* Default text color */
+        }
+
+        nav {
+            background: var(--teal); /* Teal background for the navigation bar */
+            padding: 15px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center; /* Center the list */
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--light-beige); /* Light beige text color for navigation links */
+            font-size: 2rem;
+            margin: 0 20px; /* Spacing between links */
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--orange); /* Change color to orange on hover */
+        }
+
+        .info {
+            border-style: solid white;
+            border-radius: 5px;
+            background-color: var(--teal);
+            margin: 0 7pc;
+            padding-bottom: 2.5pc;
+        }
+
+        .ats1 p {
+            /* margin-bottom: 2pc; */
+            color: var(--light-beige);
+            padding-left: 2pc;
+            font-size: 1.2rem;
+            
+        }
+/* Form Wrapper */
+.form-wrapper {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+    gap: 2rem;
+}
+
+/* Left Section (Job Description & Skills) */
+.left-section {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Text Input Cards */
+.text-input-card {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    padding-left:0.8rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.text-input-card h2 {
+    margin-bottom: 0.5rem;
+    color: #257180;
+}
+
+.styled-textarea,
+.skilled-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    resize: vertical;
+}
+
+/* Upload Section (Right Side) */
+.upload-container {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.upload-container h2 {
+    margin-bottom: 0.5rem;
+    color: #257180;
+    font-size: 1.2rem;
+}
+
+.upload-container p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* File Upload Box */
+.file-upload-box {
+    margin-top: 1rem;
+    position: relative;
+    border: 2px dashed #257180;
+    border-radius: 10px;
+    padding: 1.5rem;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-upload-box:hover {
+    background-color: #eef7fa;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    height: 100%;
+}
+
+.upload-icon {
+    font-size: 2rem;
+    color: #257180;
+}
+
+.upload-text {
+    margin-top: 0.5rem;
+    font-weight: bold;
+}
+
+/* Submit Button */
+.submit-button {
+    display: block;
+    margin: 2rem auto;
+    padding: 0.8rem 2rem;
+    background-color: #257180;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #1c5860;
+}
+@media screen and (max-width: 768px) {
+    .form-wrapper {
+        flex-direction: column;
+        padding: 0 1rem;
+    }
+
+    .left-section,
+    .upload-container {
+        width: 100%;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav a {
+        margin: 10px 0;
+        font-size: 1.5rem;
+    }
+
+    .info {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .ats1 {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ats1 p {
+        padding: 0;
+        text-align: justify;
+    }
+
+    .ats1 img {
+        margin: 1rem 0;
+        width: 90%;
+        height: auto;
+    }
+
+    .submit-button {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .file-upload-box {
+        height: auto;
+        padding: 2rem 1rem;
+    }
+
+    .upload-text {
+        font-size: 1rem;
+    }
+}
+    </style>
+</head>
+
+<body>
+    {% csrf_token %}
+    <nav>
+        <ul>
+            <li>
+                <a href="#" style="font-size: 2.9rem; text-decoration: none; margin-right: 15pc; margin-left: 2.5pc;">AW Resume Analyzer</a>
+            </li>
+            <li>
+                <a href="#">Home</a>
+                <a href="#">About Us</a>
+                <a href="#">Contact Us</a>
+            </li>
+        </ul>
+    </nav>
+   
+    <div class="info">
+        <h2 style="padding-left:2pc; padding-top: 1pc; font-size: 2rem;color:var(--light-beige);">What is ATS?</h2>
+        <div class="ats1" style="display:flex;">
+            <p>An ATS (Applicant Tracking System) score measures how well a job applicant's resume matches a job
+                description by analyzing the keywords and other criteria. ATS software scans resumes and assigns a
+                score that ranks applicants for recruiters, helping them identify strong candidates more quickly. Higher
+                ATS scores typically mean that a resume is well-tailored to the job, containing relevant skills,
+                experience, and industry-specific keywords. Many companies use ATS to streamline hiring, so
+                understanding how to optimize a resume for ATS can improve chances of passing initial screenings and
+                securing an interview.</p>
+            <img src="https://cdn-images.zety.com/images/zety/landings/static/check-your-resume@3x.png"
+                style="height: 15pc;margin-right: 5pc;margin-left: 3pc; " alt="check-your-resume@3x.png">
+        </div>
+    </div>
+
+    <h3 style="padding-left:0pc; padding-top: 1pc; font-size: 2rem; text-align: center;">How far you are to check your resume's ATS Score?</h3>
+    <p style="text-align: center; font-size: 1.5rem;">
+        Upload your Resume and Job Description. After processing, your Resume ATS Score will be shown!
+    </p>
+    <form id="upload-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-wrapper">
+            <!-- Upload Resume -->
+            <div class="upload-container">
+                <h2>Upload Your Resume Here</h2>
+                <p>Accepted formats: <strong>.docx</strong> and <strong>.pdf</strong><br>Max size: <strong>5MB</strong></p>
+                <div class="file-upload-box">
+                    <input type="file" id="file-input" name="resume" class="file-input" accept=".docx, .pdf" onchange="updateFileName()" />
+                    <label for="file-input" class="file-label" id="file-label">
+                        <span class="upload-icon">📁</span>
+                        <span class="upload-text">Upload File (.docx or .pdf)</span>
+                    </label>
+                </div>
+            </div>
+    
+            <!-- Job Description & Skills -->
+            <div class="text-input-card">
+                <h2>Paste Your Job Description</h2>
+                <textarea class="styled-textarea" name="job_description" placeholder="Paste the job description here..."></textarea>
+    
+                <h2 style="margin-top: 2pc;">Paste Relevant Skills or Keywords</h2>
+                <textarea class="skilled-textarea" name="skills" placeholder="Add keywords/skills if any..."></textarea>
+            </div>
+        </div>
+    
+        <!-- Submit Button -->
+        <button type="submit" class="submit-button">Analyze ATS</button>
+    </form>
+    
+        
+        
+    <div id="ats-result" style="display:none; margin-top:20px;padding-left:0pc; padding-top: 1pc; font-size: 2rem; text-align: center; "></div>
+
+</body>
+<script>
+    function updateFileName() {
+        const input = document.getElementById('file-input');
+        const label = document.getElementById('file-label');
+        const fileName = input.files[0]?.name || "Upload File (.docx or .pdf)";
+        label.querySelector('.upload-text').textContent = fileName;
+    }
+
+    function getCSRFToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+
+    // ✅ Wait for form submit
+    document.getElementById('upload-form').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission
+
+        const fileInput = document.getElementById('file-input');
+        const file = fileInput.files[0];
+        const jobDesc = document.querySelector('textarea[name="job_description"]').value.trim();
+        const skills = document.querySelector('textarea[name="skills"]').value.trim();
+
+        if (!file || !jobDesc || !skills) {
+            alert('Please make sure all fields are filled.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('resume', file);
+        formData.append('job_description', jobDesc);
+        formData.append('skills', skills);
+
+        fetch('/upload-docs', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': getCSRFToken()
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const resultDiv = document.getElementById('ats-result');
+            if (data.status === "success") {
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = resultDiv.innerHTML = `<p>${data.message}</p><h2>ATS Score🎉🎊: ${data.ats}%</h2>`;
+            } else {
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `<p style="color:red;">Error: ${data.message}</p>`;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
+</html>
